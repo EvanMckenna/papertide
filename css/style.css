@@ -581,3 +581,33 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
 @media (prefers-reduced-motion:reduce){.cg-grid .cg-item{transition-delay:0s!important}}
 @media (max-width:520px){.banner{font-size:.7rem;letter-spacing:.1em;padding:.55rem .6rem}}
 @media (max-width:639px){.hp h3{min-height:0}}
+/* store cards: hover / press / selected */
+.c2-shop{--acc:var(--sea)}
+.shop-card{cursor:pointer;-webkit-tap-highlight-color:transparent;--acc-b:var(--acc);
+ transition:opacity 1s var(--ease),transform 1.1s var(--ease),translate .25s ease-out,scale .18s ease-out,box-shadow .25s ease-out,border-color .25s ease-out,outline-color .25s ease-out;
+ outline:1px solid transparent;outline-offset:-1px}
+.shop-card.feature{--acc-b:color-mix(in srgb,var(--acc) 45%,#f3ebdf)}
+.shop-thumb{overflow:hidden}
+.shop-thumb img{transition:transform .25s ease-out}
+.shop-card .btn{transition:background .25s ease-out,color .25s ease-out,border-color .25s ease-out,letter-spacing .25s ease-out}
+.shop-sel{position:absolute;top:1rem;right:1rem;z-index:2;display:inline-flex;align-items:center;gap:.4rem;background:var(--acc);color:#fff;font:500 .66rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:.45rem .65rem;opacity:0;translate:0 -4px;transition:opacity .25s ease-out,translate .25s ease-out;pointer-events:none}
+.shop-card.feature .shop-sel{background:var(--acc-b);color:var(--ink)}
+.shop-card:focus-visible{outline:2px solid var(--acc-b);outline-offset:3px}
+.shop-card[aria-checked="true"]{translate:0 -5px;border-color:var(--acc-b);outline-color:var(--acc-b);box-shadow:0 2px 4px rgba(60,40,20,.06),0 22px 44px -18px rgba(70,45,20,.34)}
+.shop-card[aria-checked="true"] .shop-sel{opacity:1;translate:0 0}
+.shop-card:active{scale:.98}
+.shop-card .btn:active{scale:1}
+@media (hover:hover){
+ .shop-card:hover,.shop-card:focus-visible{translate:0 -5px;border-color:var(--acc-b);outline-color:var(--acc-b);box-shadow:0 2px 4px rgba(60,40,20,.06),0 22px 44px -18px rgba(70,45,20,.34)}
+ .shop-card:hover .shop-thumb img,.shop-card:focus-visible .shop-thumb img{transform:scale(1.03)}
+ .shop-card:hover .btn:not(.light){background:#000;border-color:#000;letter-spacing:.19em}
+ .shop-card.feature:hover .btn.light{background:#fff;border-color:var(--acc-b);letter-spacing:.19em}
+ .shop-card .btn:hover{text-decoration:underline;text-underline-offset:.3em}
+}
+@media (prefers-reduced-motion:reduce){
+ .shop-card,.shop-card:hover,.shop-card:focus-visible,.shop-card:active,.shop-card[aria-checked="true"]{translate:none;scale:none}
+ .shop-card:hover .shop-thumb img,.shop-card:focus-visible .shop-thumb img{transform:none}
+ .shop-card .btn{letter-spacing:.16em!important}
+ .shop-sel{translate:none}
+}
+.shop-card.feature .shop-sel{top:3.35rem}

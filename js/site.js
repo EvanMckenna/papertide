@@ -16,4 +16,15 @@
   var m=d.querySelector(".menu");
   if(m){m.addEventListener("click",function(e){if(e.target.tagName==="A")m.removeAttribute("open")});
     d.addEventListener("keydown",function(e){if(e.key==="Escape"&&m.hasAttribute("open")){m.removeAttribute("open");m.querySelector("summary").focus();}});}
+  // store cards: single select (radio semantics); Book link still navigates
+  [].slice.call(d.querySelectorAll(".shop-grid")).forEach(function(g){
+    var cards=[].slice.call(g.querySelectorAll(".shop-card"));
+    function pick(c){cards.forEach(function(x){x.setAttribute("aria-checked",x===c?"true":"false")});}
+    cards.forEach(function(c){
+      c.addEventListener("click",function(e){if(e.target.closest("a"))return;pick(c);});
+      c.addEventListener("keydown",function(e){if(e.target!==c)return;
+        if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(c);}
+        else if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();var i=cards.indexOf(c)+((e.key==="ArrowRight"||e.key==="ArrowDown")?1:-1);var n=cards[(i+cards.length)%cards.length];n.focus();pick(n);}});
+    });
+  });
 })();
